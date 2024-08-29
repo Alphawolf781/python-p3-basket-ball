@@ -182,3 +182,116 @@ def game_dict():
             ]
         }
     }
+
+
+def num_points_per_game(name):
+#    fetch the game data
+    game_data = game_dict()
+
+    # check both home and away teams
+    for team in ['home', 'away']:
+        for player in game_data[team]['players']:
+            if player['name'] == name:
+                return player['points_per_game']
+            
+    return None
+print(num_points_per_game("Bradley Beal"))
+
+def player_age(name):
+    # fetch the game data
+    game_data = game_dict()
+
+    # iterate over the players to get the age
+    for team in ['home','away']:
+        for player in game_data[team]['players']:
+            if player['name'] == name:
+                return player['age']
+            
+    return None
+print(player_age("Bradley Beal"))
+
+def team_colors(team_name):
+    # fetch game data
+    game_data = game_dict()
+
+    # Get the team name
+    for team in ['home', 'away']:
+        if game_data[team]['team_name'] == team_name:
+                return game_data[team]["colors"]
+            
+    return None
+print(team_colors("Cleveland Cavaliers"))
+
+def team_names():
+    # fetch game data
+    game_data = game_dict()
+
+    # Get the team name
+    home_team_name = game_data['home']['team_name']
+    away_team_name = game_data['away']['team_name']
+
+    return [home_team_name,away_team_name]
+print(team_names())
+
+def player_numbers(team_name):
+    # fetch game data
+    game_data = game_dict()
+
+    for team in ['home', 'away']:
+        if game_data[team]['team_name'] == team_name:
+                return[player['number'] for player in game_data[team]['players']]
+    return None
+print(player_numbers("Cleveland Cavaliers"))
+
+def player_stats(Player_name):
+     game_data = game_dict()
+
+     for team in ['home', 'away']:
+          for player in game_data[team]['players']:
+               if player['name'] == Player_name:
+                    return {"name": player['name'],
+                            "number": player['number'],
+                            "position" :player['position'],
+                            "points_per_game":player['points_per_game'],
+                            "rebounds_per_game":player['rebounds_per_game'],
+                            "assists_per_game":player['assists_per_game'],
+                            "steals_per_game":player['steals_per_game'],
+                            "blocks_per_game":player['blocks_per_game'],
+                            "career_points":player['career_points'],
+                            "age":player['age'],
+                            "height_inches":player['height_inches'],
+                            "shoe_brand":player['shoe_brand']
+                              }
+
+
+     return None
+print(player_stats("Bradley Beal"))
+
+def average_rebounds_by_shoe_brand():
+    """
+    Calculates and prints the average number of rebounds for players wearing each shoe brand.
+    """
+    # Fetch the game data
+    game_data = game_dict()
+    
+    # Dictionary to hold rebounds by shoe brand
+    rebounds_by_brand = {}
+    
+    # Iterate through both home and away teams
+    for team in ['home', 'away']:
+        for player in game_data[team]['players']:
+            shoe_brand = player['shoe_brand']
+            rebounds = player['rebounds_per_game']
+            
+            if shoe_brand not in rebounds_by_brand:
+                rebounds_by_brand[shoe_brand] = []
+            
+            rebounds_by_brand[shoe_brand].append(rebounds)
+    
+    # Calculate and print the average rebounds for each shoe brand
+    for brand, rebounds in rebounds_by_brand.items():
+        average_rebounds = sum(rebounds) / len(rebounds)
+        print(f"{brand}:  {average_rebounds:.2f}")
+
+# Example usage
+average_rebounds_by_shoe_brand()
