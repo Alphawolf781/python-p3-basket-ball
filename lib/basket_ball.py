@@ -268,9 +268,7 @@ def player_stats(Player_name):
 print(player_stats("Bradley Beal"))
 
 def average_rebounds_by_shoe_brand():
-    """
-    Calculates and prints the average number of rebounds for players wearing each shoe brand.
-    """
+   
     # Fetch the game data
     game_data = game_dict()
     
